@@ -16,10 +16,14 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>{
+public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewHolder> {
 
     private List<Movie> movies = new ArrayList<>();
+    private OnReachEndListener onReachEndListener;
 
+    public void setOnReachEndListener(OnReachEndListener onReachEndListener) {
+        this.onReachEndListener = onReachEndListener;
+    }
 
     public void setMovies(List<Movie> movies) {
         this.movies = movies;
@@ -29,7 +33,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_item,
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_item,
                 parent,
                 false);
         return new MovieViewHolder(view);
@@ -43,9 +47,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
                 .into(holder.imageViewPoster);
         double rating = movie.getRating().getImdb();
         int backgroundId;
-        if (rating > 7){
+        if (rating > 7) {
             backgroundId = R.drawable.circle_green;
-        } else if (rating > 5){
+        } else if (rating > 5) {
             backgroundId = R.drawable.circle_yellow;
         } else {
             backgroundId = R.drawable.circle_red;
@@ -53,11 +57,18 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         Drawable background = ContextCompat.getDrawable(holder.itemView.getContext(), backgroundId);
         holder.textViewRating.setBackground(background);
         holder.textViewRating.setText(String.valueOf(rating));
+        if (position == movies.size() -1 && onReachEndListener != null){
+            onReachEndListener.OnREachEnd();
+        }
     }
 
     @Override
     public int getItemCount() {
         return movies.size();
+    }
+
+    interface OnReachEndListener {
+        void OnREachEnd();
     }
 
     static class MovieViewHolder extends RecyclerView.ViewHolder {
