@@ -19,7 +19,13 @@ import java.util.List;
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewHolder> {
 
     private List<Movie> movies = new ArrayList<>();
+
     private OnReachEndListener onReachEndListener;
+    private OnPosterClickListener onPosterClickListener;
+
+    public void setOnPosterClickListener(OnPosterClickListener onPosterClickListener) {
+        this.onPosterClickListener = onPosterClickListener;
+    }
 
     public void setOnReachEndListener(OnReachEndListener onReachEndListener) {
         this.onReachEndListener = onReachEndListener;
@@ -61,6 +67,14 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         if (position == movies.size() - 10 && onReachEndListener != null) {
             onReachEndListener.OnREachEnd();
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onPosterClickListener != null){
+                     onPosterClickListener.onPosterClick(movie);
+                }
+            }
+        });
     }
 
     @Override
@@ -70,6 +84,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     interface OnReachEndListener {
         void OnREachEnd();
+    }
+
+    interface OnPosterClickListener {
+        void onPosterClick(Movie movie);
     }
 
     static class MovieViewHolder extends RecyclerView.ViewHolder {

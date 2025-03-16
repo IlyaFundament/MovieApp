@@ -2,7 +2,9 @@ package com.example.movies;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Movie {
+import java.io.Serializable;
+
+public class Movie implements Serializable {
     @SerializedName("id")
     private int id;
     @SerializedName("name")
@@ -13,6 +15,8 @@ public class Movie {
     private int year;
     @SerializedName("poster")
     private Poster poster;
+    @SerializedName("rating")
+    private Rating rating;
 
     @Override
     public String toString() {
@@ -26,8 +30,7 @@ public class Movie {
                 '}';
     }
 
-    @SerializedName("rating")
-    private Rating rating;
+
 
     public Movie(int id, String name, String description, int year, Poster poster, Rating rating) {
         this.id = id;

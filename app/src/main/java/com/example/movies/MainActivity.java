@@ -1,5 +1,6 @@
 package com.example.movies;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ProgressBar;
@@ -66,6 +67,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void OnREachEnd() {
                 viewModel.loadMovies();
+            }
+        });
+        moviesAdapter.setOnPosterClickListener(new MoviesAdapter.OnPosterClickListener() {
+            @Override
+            public void onPosterClick(Movie movie) {
+                Intent intent = MovieDetailActivity.newIntent(MainActivity.this, movie);
+                startActivity(intent);
             }
         });
     }
