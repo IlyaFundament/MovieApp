@@ -33,7 +33,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_item,
+        View view = LayoutInflater.from(parent.getContext()).inflate(
+                R.layout.movie_item,
                 parent,
                 false);
         return new MovieViewHolder(view);
@@ -57,7 +58,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         Drawable background = ContextCompat.getDrawable(holder.itemView.getContext(), backgroundId);
         holder.textViewRating.setBackground(background);
         holder.textViewRating.setText(String.valueOf(rating));
-        if (position == movies.size() -1 && onReachEndListener != null){
+        if (position == movies.size() - 10 && onReachEndListener != null) {
             onReachEndListener.OnREachEnd();
         }
     }

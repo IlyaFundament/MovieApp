@@ -6,7 +6,7 @@ import retrofit2.http.Query;
 
 public interface ApiService {
 
-    //@GET("movie?token=TPRZ67R-GMJMQX8-JJ2MZRA-E0C2MSE&field=rating.imdb&search=7-10&sortField=votes.imdb&sortType=-1&limit=20")
+
     @GET("movie?token=TPRZ67R-GMJMQX8-JJ2MZRA-E0C2MSE&field=rating.imdb&search=1-5&sortField=votes.imdb&sortType=-1&limit=30")
 
     Single<MovieResponse> loadMovies(@Query("page") int page);
