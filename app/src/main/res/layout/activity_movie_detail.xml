@@ -13,47 +13,51 @@
 
 
         <ImageView
+            android:id="@+id/imageViewPoster"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/imageViewPoster"
+            android:adjustViewBounds="true"
             android:contentDescription="@null"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars"
-            android:adjustViewBounds="true"
-            />
+            tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/textViewTitle"
-            app:layout_constraintTop_toBottomOf="@id/imageViewPoster"
-            tools:text="Title"
-            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:padding="8dp"
+            android:textSize="16sp"
             android:textStyle="bold"
-            />
+            app:layout_constraintTop_toBottomOf="@id/imageViewPoster"
+            tools:text="Title" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/textViewYear"
-            app:layout_constraintTop_toBottomOf="@id/textViewTitle"
-            android:textColor="@android:color/holo_orange_light"
-            tools:text="1898"
-            android:textSize="16sp"
-            android:padding="8dp"
-            />
-
-        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textViewDescription"
-            app:layout_constraintTop_toBottomOf="@id/textViewYear"
-            tools:text="BLUE BLUE BLUE BRUH BRUH BRUH"
-            android:textSize="16sp"
             android:padding="8dp"
-            />
+            android:textColor="@android:color/holo_orange_light"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+            tools:text="1898" />
 
+        <TextView
+            android:id="@+id/textViewDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/textViewYear"
+            tools:text="BLUE BLUE BLUE BRUH BRUH BRUH" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewTrailers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:isScrollContainer="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/textViewDescription"
+            tools:listitem="@layout/trailer_item" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,11 @@ public class Trailer {
     @SerializedName("url")
     private String url;
 
+    public Trailer(String name, String url) {
+        this.name = name;
+        this.url = url;
+    }
+
     public String getName() {
         return name;
     }
