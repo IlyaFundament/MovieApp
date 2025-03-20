@@ -21,6 +21,10 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 public class MovieDetailActivity extends AppCompatActivity {
 
     private static final String TAG = "MovieDetailActivity";
@@ -60,14 +64,18 @@ public class MovieDetailActivity extends AppCompatActivity {
                 trailersAdapter.setTrailers(trailers);
             }
         });
-        trailersAdapter.setOnTrailerClickListener(new TrailersAdapter.OnTrailerClickListener() {
+        trailersAdapter.setOnTrailerClickListener(trailer -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(trailer.getUrl()));
+            startActivity(intent);
+        });
+        viewModel.getReviews().observe(this, new Observer<List<Review>>() {
             @Override
-            public void onTrailerClick(Trailer trailer) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(trailer.getUrl()));
+            public void onChanged(List<Review> reviews) {
+                Log.d(TAG, reviews.toString())
             }
         });
-
+        viewModel.loadReviews(movie.getId());
 
     }
 
@@ -76,7 +84,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         textViewTitle = findViewById(R.id.textViewTitle);
         textViewYear = findViewById(R.id.textViewYear);
         textViewDescription = findViewById(R.id.textViewDescription);
-        recyclerViewTrailers =  findViewById(R.id.recyclerViewTrailers);
+        recyclerViewTrailers = findViewById(R.id.recyclerViewTrailers);
     }
 
     public static Intent newIntent(Context context, Movie movie) {
@@ -84,9 +92,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_MOVIE, movie);
         return intent;
     }
-
-
-
 
 
 }
